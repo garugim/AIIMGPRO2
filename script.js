@@ -1,19 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-const glowCursor = document.getElementById('glow-cursor');
+    
+    // -------------------------------------
+    // 1. 배경 패닝 (Parallax) 효과 코드 제거 완료
+    // -------------------------------------
+    
+    // -------------------------------------
+    // 2. 잔상이 남는 빛 커서 효과 구현
+    // -------------------------------------
+    const glowCursor = document.getElementById('glow-cursor');
 
     // 마우스 이동 이벤트 리스너
     document.addEventListener('mousemove', (e) => {
-        // 커서 위치 업데이트
         // requestAnimationFrame을 사용하여 부드러운 움직임을 만듭니다.
         requestAnimationFrame(() => {
+            // 커서의 위치를 마우스 위치로 업데이트합니다.
+            // CSS의 transform: translate(-50%, -50%) 덕분에 정중앙에 위치합니다.
             glowCursor.style.left = `${e.clientX}px`;
             glowCursor.style.top = `${e.clientY}px`;
         });
     });
 
-
     // -------------------------------------
-    // 2. 이미지 섹션 카드 슬라이더 구현
+    // 3. 이미지 섹션 카드 슬라이더 구현 (기존 코드 유지)
     // -------------------------------------
     const cards = document.querySelectorAll('.image-card');
     const prevBtn = document.querySelector('.prev-btn');
@@ -22,7 +30,6 @@ const glowCursor = document.getElementById('glow-cursor');
 
     function updateCardDisplay() {
         cards.forEach((card, index) => {
-            // 현재 활성화된 카드만 'active' 클래스를 가짐
             if (index === currentCardIndex) {
                 card.classList.add('active');
             } else {
@@ -32,35 +39,29 @@ const glowCursor = document.getElementById('glow-cursor');
     }
 
     prevBtn.addEventListener('click', () => {
-        // 이전 카드로 이동 (순환)
         currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
         updateCardDisplay();
     });
 
     nextBtn.addEventListener('click', () => {
-        // 다음 카드로 이동 (순환)
         currentCardIndex = (currentCardIndex + 1) % cards.length;
         updateCardDisplay();
     });
 
-    // 초기 카드 설정
     updateCardDisplay();
 
 
     // -------------------------------------
-    // 3. 컨택 폼 제출 이벤트 (실제 서버 연결 필요)
+    // 4. 컨택 폼 제출 이벤트 (기존 코드 유지)
     // -------------------------------------
     const contactForm = document.getElementById('contact-form');
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // 여기에 실제 메일 발송 로직 (예: Fetch API를 이용한 백엔드 서버 호출) 구현 필요
-        // 현재는 콘솔 메시지로 대체
         console.log("폼 제출 감지!");
         const email = document.getElementById('email').value;
         const inquiry = document.getElementById('inquiry').value;
         
-        // 예시 메시지
         alert(`Inquiry Sent: \nEmail: ${email}\nContent: ${inquiry.substring(0, 30)}...`);
         contactForm.reset();
     });

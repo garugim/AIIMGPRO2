@@ -13,8 +13,65 @@
 }
 
 body {
+    background-color: var(--color-dark);
+    color: var(--color-primary-text);
+    font-family: 'Roboto Mono', monospace; /* 미래적인 모노 스페이스 폰트 */
+    line-height: 1.6;
+    overflow-x: hidden;
     cursor: none; /* 기본 마우스 커서 숨기기 */
 }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative; 
+    z-index: 10; /* 배경 위에 콘텐츠가 겹치도록 설정 */
+}
+
+.section {
+    padding: 100px 0;
+    min-height: 100vh;
+}
+
+/* 1. 메인 섹션 중앙 정렬 */
+#main-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center;     /* 수평 중앙 정렬 */
+    text-align: center;
+    min-height: 100vh;
+}
+
+/* 네온 텍스트 효과 (유지) */
+.neon-text {
+    text-shadow: 0 0 5px var(--color-neon-blue),
+                 0 0 10px var(--color-neon-blue),
+                 0 0 20px var(--color-neon-blue),
+                 0 0 40px rgba(0, 255, 255, 0.5);
+    color: #fff;
+}
+/* ... (neon-subtext, section-title 등 기타 텍스트 스타일 유지) ... */
+
+/* ------------------------------------- */
+/* 2 & 3. 배경 패닝 제거 및 입자 애니메이션 스타일 */
+/* ------------------------------------- */
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* 콘텐츠보다 아래에 위치 */
+    background-color: var(--color-dark);
+}
+
+/* ------------------------------------- */
+/* 4. 마우스 커서 잔상 효과 스타일 */
+/* ------------------------------------- */
+
 #glow-cursor {
     position: fixed;
     width: 20px;
@@ -30,110 +87,9 @@ body {
                 0 0 40px rgba(255, 0, 255, 0.6);
     
     /* 잔상을 위한 부드러운 전환 효과 */
-    transition: width 0.1s, height 0.1s, background-color 0.1s; 
-    /* 위치는 JS로 제어 */
+    transition: transform 0.1s linear; 
     transform: translate(-50%, -50%); 
 }
-
-/* 링크나 버튼 위에서는 커서 크기를 키우는 등 인터랙션 추가 가능 */
-a:hover ~ #glow-cursor, button:hover ~ #glow-cursor {
-    width: 30px;
-    height: 30px;
-}
-
-body {
-    background-color: var(--color-dark);
-    color: var(--color-primary-text);
-    font-family: 'Roboto Mono', monospace; /* 미래적인 모노 스페이스 폰트 */
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    position: relative; /* 배경 위에 콘텐츠가 겹치도록 설정 */
-    z-index: 10;
-}
-
-.section {
-    padding: 100px 0;
-    min-height: 100vh;
-}
-
-/* 네온 텍스트 효과 */
-.neon-text {
-    text-shadow: 0 0 5px var(--color-neon-blue),
-                 0 0 10px var(--color-neon-blue),
-                 0 0 20px var(--color-neon-blue),
-                 0 0 40px rgba(0, 255, 255, 0.5);
-    color: #fff;
-}
-
-.title {
-    font-size: 4em;
-    margin-bottom: 0.2em;
-}
-
-.neon-subtext {
-    color: var(--color-neon-pink);
-    text-shadow: 0 0 3px var(--color-neon-pink);
-    font-size: 1.2em;
-}
-
-.section-title {
-    font-size: 2.5em;
-    border-bottom: 2px solid var(--color-neon-pink);
-    padding-bottom: 10px;
-    margin-bottom: 50px;
-    display: inline-block;
-    color: #fff;
-    text-shadow: 0 0 5px var(--color-neon-pink);
-}
-
-/* ------------------------------------- */
-/* 배경 및 패닝 애니메이션 스타일 */
-/* ------------------------------------- */
-#main-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 수직 중앙 정렬 */
-    align-items: center;     /* 수평 중앙 정렬 */
-    text-align: center;
-    min-height: 100vh;
-    padding: 100px 0;
-}
-
-#background-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* 패닝을 위해 뷰포트보다 크게 설정 */
-    height: 100%;
-    z-index: 0;
-    transform: none; 
-    overflow: hidden;
-    background-color: var(--color-dark);
-}
-
-#neon-particles {
-    width: 100%;
-    height: 100%;
-    /* 네온 그리드는 제거하고 여기에 입자 애니메이션 적용 */
-    background: radial-gradient(circle at 10% 10%, rgba(0, 255, 255, 0.1) 1px, transparent 1%),
-                radial-gradient(circle at 90% 90%, rgba(255, 0, 255, 0.1) 1px, transparent 1%),
-                /* 실제 입자 애니메이션은 JS로 제어할 것이므로 CSS는 기본적인 시각 효과만 부여 */
-                transparent;
-}
-
-/* 입자 애니메이션을 위한 키프레임 (예시: 느린 움직임) */
-@keyframes particle-move {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
-}
-
-
 
 /* ------------------------------------- */
 /* 이미지 섹션 (카드) 스타일 */
