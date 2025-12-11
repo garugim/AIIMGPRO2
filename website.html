@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI WORKS PORTFOLIO // CYBERPUNK</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="background-container">
+        <div id="neon-grid"></div>
+    </div>
+
+    <div class="container">
+        
+        <section id="main-section" class="section">
+            <h1 class="neon-text title">AI_WORKS_PORTFOLIO // V3.1</h1>
+            <p class="neon-subtext">Creative Systems // Where Code Meets Art</p>
+            <div class="scroll-indicator">_SCROLL_DOWN_</div>
+        </section>
+
+        <section id="image-section" class="section">
+            <h2 class="section-title">🖼️ IMAGE GALLERY</h2>
+            <div class="card-slider-wrapper">
+                <div class="card-container" id="image-cards">
+                    <div class="image-card active" data-card="1">
+                        <img src="images/ai_image_01.jpg" alt="AI Image 1">
+                        <div class="card-overlay">Project A // Data Synthesis</div>
+                    </div>
+                    <div class="image-card" data-card="2">
+                        <img src="images/ai_image_02.jpg" alt="AI Image 2">
+                        <div class="card-overlay">Project B // Neural Dreams</div>
+                    </div>
+                    <div class="image-card" data-card="3">
+                        <img src="images/ai_image_03.jpg" alt="AI Image 3">
+                        <div class="card-overlay">Project C // Matrix Cityscape</div>
+                    </div>
+                </div>
+                <button class="slider-btn prev-btn">&lt;</button>
+                <button class="slider-btn next-btn">&gt;</button>
+            </div>
+        </section>
+
+        <section id="video-section" class="section">
+            <h2 class="section-title">🎥 VIDEO SHOWCASE</h2>
+            <ul class="video-list">
+                <li class="video-item">
+                    <a href="#" data-video-url="video_1.mp4">
+                        <div class="neon-border"></div>
+                        <span class="video-title">01 // Hyperloop Concept</span>
+                        <span class="video-desc">Abstract animation using GANs. (0:45)</span>
+                    </a>
+                </li>
+                <li class="video-item">
+                    <a href="#" data-video-url="video_2.mp4">
+                        <div class="neon-border"></div>
+                        <span class="video-title">02 // Digital Decay</span>
+                        <span class="video-desc">Vaporwave-style visualizer. (1:12)</span>
+                    </a>
+                </li>
+                <li class="video-item">
+                    <a href="#" data-video-url="video_3.mp4">
+                        <div class="neon-border"></div>
+                        <span class="video-title">03 // Quantum Light Field</span>
+                        <span class="video-desc">3D fractal generation. (2:01)</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section id="contact-section" class="section">
+            <h2 class="section-title">📧 CONTACT // INQUIRY</h2>
+            <form id="contact-form" class="neon-form">
+                <div class="form-group">
+                    <label for="email">E-MAIL</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="inquiry">COLLABORATION INQUIRY CONTENT</label>
+                    <textarea id="inquiry" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn neon-button">SUBMIT</button>
+            </form>
+        </section>
+
+    </div> <script src="script.js"></script>
+</body>
+</html>

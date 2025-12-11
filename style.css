@@ -1,0 +1,286 @@
+/* 전역 스타일 및 기본 설정 */
+:root {
+    --color-dark: #0a0a0a;
+    --color-neon-blue: #00ffff; /* 청록색 네온 */
+    --color-neon-pink: #ff00ff; /* 마젠타 네온 */
+    --color-primary-text: #e0e0e0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-dark);
+    color: var(--color-primary-text);
+    font-family: 'Roboto Mono', monospace; /* 미래적인 모노 스페이스 폰트 */
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative; /* 배경 위에 콘텐츠가 겹치도록 설정 */
+    z-index: 10;
+}
+
+.section {
+    padding: 100px 0;
+    min-height: 100vh;
+}
+
+/* 네온 텍스트 효과 */
+.neon-text {
+    text-shadow: 0 0 5px var(--color-neon-blue),
+                 0 0 10px var(--color-neon-blue),
+                 0 0 20px var(--color-neon-blue),
+                 0 0 40px rgba(0, 255, 255, 0.5);
+    color: #fff;
+}
+
+.title {
+    font-size: 4em;
+    margin-bottom: 0.2em;
+}
+
+.neon-subtext {
+    color: var(--color-neon-pink);
+    text-shadow: 0 0 3px var(--color-neon-pink);
+    font-size: 1.2em;
+}
+
+.section-title {
+    font-size: 2.5em;
+    border-bottom: 2px solid var(--color-neon-pink);
+    padding-bottom: 10px;
+    margin-bottom: 50px;
+    display: inline-block;
+    color: #fff;
+    text-shadow: 0 0 5px var(--color-neon-pink);
+}
+
+/* ------------------------------------- */
+/* 배경 및 패닝 애니메이션 스타일 */
+/* ------------------------------------- */
+
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%; /* 패닝을 위해 뷰포트보다 크게 설정 */
+    height: 200%;
+    z-index: 0;
+    overflow: hidden;
+    transform: translate(-25%, -25%); /* 초기 위치 조정 */
+}
+
+#neon-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 255, 0.1) 1px, rgba(0, 255, 255, 0.1) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0, 255, 255, 0.1) 1px, rgba(0, 255, 255, 0.1) 40px);
+    opacity: 0.3;
+}
+
+/* ------------------------------------- */
+/* 이미지 섹션 (카드) 스타일 */
+/* ------------------------------------- */
+
+.card-slider-wrapper {
+    position: relative;
+    padding: 0 50px;
+    overflow: hidden;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    transition: transform 0.5s ease-in-out;
+}
+
+.image-card {
+    width: 600px;
+    height: 400px;
+    background-color: #1a1a1a;
+    border: 1px solid var(--color-neon-blue);
+    box-shadow: 0 0 10px var(--color-neon-blue);
+    opacity: 0;
+    position: absolute; /* 겹치도록 설정 */
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+.image-card.active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    z-index: 5;
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--color-neon-pink);
+    text-align: right;
+    border-top: 1px solid var(--color-neon-pink);
+    text-shadow: 0 0 2px var(--color-neon-pink);
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--color-neon-blue);
+    font-size: 3em;
+    cursor: pointer;
+    z-index: 10;
+    text-shadow: 0 0 5px var(--color-neon-blue);
+    transition: color 0.3s;
+}
+
+.slider-btn:hover {
+    color: #fff;
+}
+
+.prev-btn { left: 0; }
+.next-btn { right: 0; }
+
+/* ------------------------------------- */
+/* 동영상 섹션 (리스트) 스타일 */
+/* ------------------------------------- */
+
+.video-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.video-item a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    position: relative;
+    text-decoration: none;
+    color: var(--color-primary-text);
+    overflow: hidden;
+    transition: background-color 0.3s;
+}
+
+.video-item a:hover {
+    background-color: #1f1f1f;
+}
+
+.video-item .neon-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.video-item a:hover .neon-border {
+    border-color: var(--color-neon-pink);
+    box-shadow: 0 0 15px var(--color-neon-pink);
+}
+
+.video-title {
+    font-size: 1.5em;
+    color: var(--color-neon-blue);
+}
+
+.video-desc {
+    font-size: 0.9em;
+    color: #aaa;
+}
+
+
+/* ------------------------------------- */
+/* 컨택 섹션 (폼) 스타일 */
+/* ------------------------------------- */
+
+.neon-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.neon-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-neon-pink);
+    text-shadow: 0 0 2px var(--color-neon-pink);
+}
+
+.neon-form input,
+.neon-form textarea {
+    width: 100%;
+    padding: 15px;
+    background-color: #1a1a1a;
+    border: 1px solid var(--color-neon-blue);
+    color: var(--color-primary-text);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1em;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    transition: box-shadow 0.3s;
+}
+
+.neon-form input:focus,
+.neon-form textarea:focus {
+    outline: none;
+    border-color: var(--color-neon-pink);
+    box-shadow: 0 0 10px var(--color-neon-pink);
+}
+
+.neon-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.neon-button {
+    background-color: var(--color-neon-blue);
+    color: var(--color-dark);
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px var(--color-neon-blue);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.neon-button:hover {
+    background-color: #fff;
+    box-shadow: 0 0 25px var(--color-neon-pink), 0 0 40px var(--color-neon-pink);
+}
