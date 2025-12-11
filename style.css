@@ -13,6 +13,35 @@
 }
 
 body {
+    cursor: none; /* 기본 마우스 커서 숨기기 */
+}
+#glow-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    pointer-events: none; /* 클릭을 방해하지 않도록 설정 */
+    z-index: 9999;
+    
+    /* 네온 빛 효과 */
+    background: var(--color-neon-pink);
+    box-shadow: 0 0 10px var(--color-neon-pink),
+                0 0 20px var(--color-neon-pink),
+                0 0 40px rgba(255, 0, 255, 0.6);
+    
+    /* 잔상을 위한 부드러운 전환 효과 */
+    transition: width 0.1s, height 0.1s, background-color 0.1s; 
+    /* 위치는 JS로 제어 */
+    transform: translate(-50%, -50%); 
+}
+
+/* 링크나 버튼 위에서는 커서 크기를 키우는 등 인터랙션 추가 가능 */
+a:hover ~ #glow-cursor, button:hover ~ #glow-cursor {
+    width: 30px;
+    height: 30px;
+}
+
+body {
     background-color: var(--color-dark);
     color: var(--color-primary-text);
     font-family: 'Roboto Mono', monospace; /* 미래적인 모노 스페이스 폰트 */
@@ -66,27 +95,45 @@ body {
 /* ------------------------------------- */
 /* 배경 및 패닝 애니메이션 스타일 */
 /* ------------------------------------- */
+#main-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 수직 중앙 정렬 */
+    align-items: center;     /* 수평 중앙 정렬 */
+    text-align: center;
+    min-height: 100vh;
+    padding: 100px 0;
+}
 
 #background-container {
     position: fixed;
     top: 0;
     left: 0;
-    width: 200%; /* 패닝을 위해 뷰포트보다 크게 설정 */
-    height: 200%;
+    width: 100%; /* 패닝을 위해 뷰포트보다 크게 설정 */
+    height: 100%;
     z-index: 0;
+    transform: none; 
     overflow: hidden;
-    transform: translate(-25%, -25%); /* 초기 위치 조정 */
+    background-color: var(--color-dark);
 }
 
-#neon-grid {
-    position: absolute;
+#neon-particles {
     width: 100%;
     height: 100%;
-    background-image: 
-        repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 255, 0.1) 1px, rgba(0, 255, 255, 0.1) 40px),
-        repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0, 255, 255, 0.1) 1px, rgba(0, 255, 255, 0.1) 40px);
-    opacity: 0.3;
+    /* 네온 그리드는 제거하고 여기에 입자 애니메이션 적용 */
+    background: radial-gradient(circle at 10% 10%, rgba(0, 255, 255, 0.1) 1px, transparent 1%),
+                radial-gradient(circle at 90% 90%, rgba(255, 0, 255, 0.1) 1px, transparent 1%),
+                /* 실제 입자 애니메이션은 JS로 제어할 것이므로 CSS는 기본적인 시각 효과만 부여 */
+                transparent;
 }
+
+/* 입자 애니메이션을 위한 키프레임 (예시: 느린 움직임) */
+@keyframes particle-move {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+
 
 /* ------------------------------------- */
 /* 이미지 섹션 (카드) 스타일 */

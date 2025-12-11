@@ -1,26 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // -------------------------------------
-    // 1. 배경 패닝 (Parallax) 효과 구현
-    // -------------------------------------
-    const background = document.getElementById('background-container');
-    const bgWidth = background.offsetWidth;
-    const bgHeight = background.offsetHeight;
+const glowCursor = document.getElementById('glow-cursor');
 
+    // 마우스 이동 이벤트 리스너
     document.addEventListener('mousemove', (e) => {
-        // 마우스 위치 (x, y)를 0 ~ 1 사이의 값으로 정규화
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-
-        // 배경을 움직일 최대 거리 설정 (예: 25% 중앙에서 움직임)
-        const maxMoveX = bgWidth * 0.25; 
-        const maxMoveY = bgHeight * 0.25;
-
-        // 배경 위치 계산: 마우스가 좌측 상단일 때 배경이 우측 하단으로 이동
-        // 초기 transform: translate(-25%, -25%)를 기준으로 움직임
-        const xTranslate = -25 + (mouseX * 50); // -25% 에서 +25% (총 50%)
-        const yTranslate = -25 + (mouseY * 50); // -25% 에서 +25%
-
-        background.style.transform = `translate(${xTranslate}%, ${yTranslate}%)`;
+        // 커서 위치 업데이트
+        // requestAnimationFrame을 사용하여 부드러운 움직임을 만듭니다.
+        requestAnimationFrame(() => {
+            glowCursor.style.left = `${e.clientX}px`;
+            glowCursor.style.top = `${e.clientY}px`;
+        });
     });
 
 
