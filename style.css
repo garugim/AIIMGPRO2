@@ -113,15 +113,16 @@ body {
 
 .image-card {
     width: 600px;
-    height: 400px;
+    height: 500px;
     background-color: #1a1a1a;
-    border: 1px solid var(--color-neon-blue);
+    border: 2px solid var(--color-neon-blue);
     box-shadow: 0 0 10px var(--color-neon-blue);
     opacity: 0;
-    position: absolute; /* 겹치도록 설정 */
     transform: scale(0.8) translateY(20px);
     transition: all 0.5s ease, transform 0.2s ease; /* 호버 전환 효과 추가 */
+    position: absolute; 
     overflow: hidden;
+    padding: 0 !important; /* 내부 여백 없음 유지 */
 }
 
 .image-card.active {
@@ -136,19 +137,26 @@ body {
 }
 
 .image-card img {
+    /* ⭐ 이 부분을 수정합니다: position 속성 추가 ⭐ */
+    position: absolute; 
+    top: 0;           /* 카드의 맨 위(상단)에 이미지를 붙입니다. */
+    left: 0;
+    /* ---------------------------------- */
     width: 100%;
-    height: 100%;
+    height: 100%; 
     object-fit: cover;
+    object-position: 0% 15%; /* 이미지 포지션 상단 유지 */
     filter: brightness(0.8);
 }
 
 .card-overlay {
     position: absolute;
-    bottom: 0;
+    bottom: 0; /* ⭐ 하단에 명확히 붙입니다. ⭐ */
     left: 0;
     width: 100%;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.7);
+    height: 40px; /* ⭐ 높이를 고정하여 상단 침범 방지 ⭐ */
+    background: rgba(0, 0, 0, 0.8); /* 배경색을 약간 투명하게 설정하여 아래 이미지가 살짝 보이도록 */
     color: var(--color-neon-pink);
     text-align: right;
     border-top: 1px solid var(--color-neon-pink);
@@ -292,6 +300,28 @@ body {
     to { opacity: 1; transform: scale(1); }
 }
 
+.video-content {
+    max-width: 800px; /* 비디오에 적합한 최대 너비 */
+}
+
+/* 비디오 플레이어 비율 유지 컨테이너 */
+#video-player-container {
+    position: relative;
+    width: 100%;
+    /* 16:9 비율 유지를 위한 패딩 (9 / 16 * 100 = 56.25%) */
+    padding-top: 56.25%; 
+    margin-bottom: 20px;
+}
+
+#video-player-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 /* ------------------------------------- */
 /* 1. 오디오 비주얼라이저 애니메이션 추가 */
 /* ------------------------------------- */
@@ -391,4 +421,73 @@ body {
 .nav-item:hover {
     color: var(--color-neon-pink);
     text-shadow: 0 0 8px var(--color-neon-pink), 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+/* ------------------------------------- */
+/* 컨택 섹션 (폼) 스타일 */
+/* ------------------------------------- */
+
+.neon-form {
+    max-width: 600px;
+    margin: 0 auto;
+    
+    /* [수정] 구조적 배경 추가 */
+    background-color: rgba(10, 10, 10, 0.7); /* 어두운 반투명 배경 */
+    padding: 40px;
+    border: 1px solid var(--color-neon-blue);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); /* 청록색 네온 윤곽 */
+    backdrop-filter: blur(2px); /* 배경 입자가 살짝 흐려지도록 */
+}
+
+/* ... (form-group 유지) ... */
+
+.neon-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-neon-pink);
+    text-shadow: 0 0 4px var(--color-neon-pink); /* [강화] 레이블 네온 효과 강화 */
+}
+
+.neon-form input,
+.neon-form textarea {
+    width: 100%;
+    padding: 15px;
+    background-color: #0a0a0a; /* 배경을 더 어둡게 */
+    border: 1px solid var(--color-neon-blue);
+    color: var(--color-primary-text);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1em;
+    box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.3); /* [강화] 내부 인셋 섀도우 추가 */
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.neon-form input:focus,
+.neon-form textarea:focus {
+    outline: none;
+    border-color: var(--color-neon-pink);
+    box-shadow: 0 0 15px var(--color-neon-pink), inset 0 0 8px rgba(255, 0, 255, 0.5); /* [강화] 포커스 시 핑크 네온 강조 */
+}
+
+/* ... (textarea 유지) ... */
+.neon-button {
+    background-color: var(--color-neon-blue);
+    color: var(--color-dark);
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px var(--color-neon-blue);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s; /* 트랜지션 추가 */
+}
+
+.neon-button:hover {
+    background-color: #fff;
+    box-shadow: 0 0 30px var(--color-neon-pink), 0 0 50px var(--color-neon-pink); /* 호버 네온 강조 강화 */
+    transform: translateY(-2px); /* 살짝 위로 띄우는 효과 */
+}
+
+.neon-button:active {
+    transform: translateY(0); /* 클릭 시 누르는 효과 */
 }

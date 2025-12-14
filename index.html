@@ -9,7 +9,7 @@
 </head>
 <body>
 
-        <nav id="top-nav">
+        <nav id="top-nav">
         <a href="#main-section" class="nav-item">MAIN</a>
         <a href="#image-section" class="nav-item">IMAGE</a>
         <a href="#video-section" class="nav-item">VIDEO</a>
@@ -28,6 +28,15 @@
         </div>
     </div>
 
+    <div id="video-modal" class="modal">
+        <div class="modal-content video-content">
+            <span class="close-btn video-close">&times;</span>
+            <div id="video-player-container">
+                </div>
+            <h3 id="modal-video-title" class="neon-text"></h3>
+        </div>
+    </div>
+    
     <div class="container">
         
         <section id="main-section" class="section">
@@ -43,15 +52,15 @@
             <div class="card-slider-wrapper">
                 <div class="card-container" id="image-cards">
                     <div class="image-card active" data-card="1" data-title="Project A // Data Synthesis" data-desc="AI 시스템을 활용하여 복잡한 데이터를 시각적으로 통합한 컨셉 아트입니다.">
-                        <img src="images/ai_image_01.jpg" alt="AI Image 1">
+                        <img src="AI_IMG.jpg" alt="AI Image 1">
                         <div class="card-overlay">Project A // Data Synthesis</div>
                     </div>
                     <div class="image-card" data-card="2" data-title="Project B // Neural Dreams" data-desc="신경망이 생성한 꿈의 풍경을 표현한 작품입니다. 미지의 영역에 대한 탐구를 담고 있습니다.">
-                        <img src="images/ai_image_02.jpg" alt="AI Image 2">
+                        <img src="AI_IMG_1.png" alt="AI Image 2">
                         <div class="card-overlay">Project B // Neural Dreams</div>
                     </div>
                     <div class="image-card" data-card="3" data-title="Project C // Matrix Cityscape" data-desc="미래의 도시 경관을 사이버펑크 스타일로 렌더링한 이미지입니다. 디테일과 대비에 중점을 두었습니다.">
-                        <img src="images/ai_image_03.jpg" alt="AI Image 3">
+                        <img src="AI_IMG_3.png" alt="AI Image 3">
                         <div class="card-overlay">Project C // Matrix Cityscape</div>
                     </div>
                 </div>
@@ -65,15 +74,15 @@
         <section id="video-section" class="section">
             <h2 class="section-title">🎥 VIDEO SHOWCASE</h2>
             <div class="video-grid">
-                <div class="video-box" data-youtube-id="dQw4w9WgXcQ"> 
+                                <div class="video-box" data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="01 // Hyperloop Concept"> 
                     <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
                     <p class="video-caption">01 // Hyperloop Concept (45초)</p>
                 </div>
-                <div class="video-box" data-youtube-id="YOUR_VIDEO_ID_2">
+                <div class="video-box" data-video-url="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" data-title="02 // Digital Decay">
                     <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
                     <p class="video-caption">02 // Digital Decay (1분 12초)</p>
                 </div>
-                <div class="video-box" data-youtube-id="YOUR_VIDEO_ID_3">
+                <div class="video-box" data-video-url="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" data-title="03 // Quantum Light Field">
                     <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" frameborder="0" allowfullscreen></iframe>
                     <p class="video-caption">03 // Quantum Light Field (2분 1초)</p>
                 </div>
