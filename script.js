@@ -1,28 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // -------------------------------------
-    // 1. 배경 패닝 (Parallax) 효과 코드 제거 완료
-    // -------------------------------------
-    
-    // -------------------------------------
-    // 2. 잔상이 남는 빛 커서 효과 구현
-    // -------------------------------------
+    // ======================================
+    // 1. 잔상 커서 효과 구현 (유지)
+    // ======================================
     const glowCursor = document.getElementById('glow-cursor');
 
-    // 마우스 이동 이벤트 리스너
     document.addEventListener('mousemove', (e) => {
-        // requestAnimationFrame을 사용하여 부드러운 움직임을 만듭니다.
         requestAnimationFrame(() => {
-            // 커서의 위치를 마우스 위치로 업데이트합니다.
-            // CSS의 transform: translate(-50%, -50%) 덕분에 정중앙에 위치합니다.
-            glowCursor.style.left = `${e.clientX}px`;
-            glowCursor.style.top = `${e.clientY}px`;
+            // 커서 위치 업데이트
+            if (glowCursor) { // 요소가 존재하는지 확인
+                glowCursor.style.left = `${e.clientX}px`;
+                glowCursor.style.top = `${e.clientY}px`;
+            }
         });
     });
 
-    // -------------------------------------
-    // 3. 이미지 섹션 카드 슬라이더 구현 (기존 코드 유지)
-    // -------------------------------------
+    // ======================================
+    // 2. 이미지 세부 정보 모달 기능 구현 (유지)
+    // ======================================
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const closeBtn = document.querySelector('.close-btn');
+    const imageCards = document.querySelectorAll('.image-card');
+
+    imageCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // 요소가 모두 존재하는지 확인하는 방어 코드 추가
+            if (!card.classList.contains('active')) {
+            // 활성화되지 않은 카드는 무시
+            return; 
+        }
+            if (modal && modalImage) { 
+                const imgSrc = card.querySelector('img').src;
+                const title = card.getAttribute('data-title');
+                const desc = card.getAttribute('data-desc');
+
+                modalImage.src = imgSrc;
+                modalTitle.textContent = title;
+                modalDesc.textContent = desc;
+                modal.style.display = "block";
+            }
+        });
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            if (modal) modal.style.display = "none";
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+
+    // ======================================
+    // 3. 이미지 섹션 카드 슬라이더 구현 (유지)
+    // ======================================
     const cards = document.querySelectorAll('.image-card');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
@@ -38,32 +76,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    prevBtn.addEventListener('click', () => {
-        currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
+            updateCardDisplay();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentCardIndex = (currentCardIndex + 1) % cards.length;
+            updateCardDisplay();
+        });
+    }
+
+    if (cards.length > 0) {
         updateCardDisplay();
-    });
-
-    nextBtn.addEventListener('click', () => {
-        currentCardIndex = (currentCardIndex + 1) % cards.length;
-        updateCardDisplay();
-    });
-
-    updateCardDisplay();
+    }
 
 
-    // -------------------------------------
-    // 4. 컨택 폼 제출 이벤트 (기존 코드 유지)
-    // -------------------------------------
+    // ======================================
+    // 4. 컨택 폼 제출 이벤트 (유지)
+    // ======================================
     const contactForm = document.getElementById('contact-form');
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        console.log("폼 제출 감지!");
-        const email = document.getElementById('email').value;
-        const inquiry = document.getElementById('inquiry').value;
-        
-        alert(`Inquiry Sent: \nEmail: ${email}\nContent: ${inquiry.substring(0, 30)}...`);
-        contactForm.reset();
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            console.log("폼 제출 감지!");
+            const email = document.getElementById('email').value;
+            const inquiry = document.getElementById('inquiry').value;
+            
+            alert(`Inquiry Sent: \nEmail: ${email}\nContent: ${inquiry.substring(0, 30)}...`);
+            contactForm.reset();
+        });
+    }
+
+
+    // ======================================
+    // 5. 상단 Nav 스무스 스크롤 구현 (유지)
+    // ======================================
+    document.querySelectorAll('#top-nav a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault(); 
+
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
 
 });
