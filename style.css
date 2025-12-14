@@ -15,10 +15,10 @@
 body {
     background-color: var(--color-dark);
     color: var(--color-primary-text);
-    font-family: 'Roboto Mono', monospace; /* 미래적인 모노 스페이스 폰트 */
+    font-family: 'Roboto Mono', monospace;
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none; /* 기본 마우스 커서 숨기기 */
+    cursor: none;
 }
 
 .container {
@@ -26,7 +26,7 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     position: relative; 
-    z-index: 10; /* 배경 위에 콘텐츠가 겹치도록 설정 */
+    z-index: 10;
 }
 
 .section {
@@ -36,7 +36,6 @@ body {
 
 /* 1. 메인 섹션 중앙 정렬 */
 #main-section {
-    /* 고정된 Nav Bar 높이만큼 여백을 줍니다. */
     padding-top: 160px; 
     display: flex;
     flex-direction: column;
@@ -54,10 +53,26 @@ body {
                  0 0 40px rgba(0, 255, 255, 0.5);
     color: #fff;
 }
-/* ... (neon-subtext, section-title 등 기타 텍스트 스타일 유지) ... */
+.neon-subtext {
+    color: var(--color-neon-pink);
+    text-shadow: 0 0 5px var(--color-neon-pink);
+    margin-bottom: 30px;
+}
+.title {
+    font-size: 3em;
+    text-transform: uppercase;
+}
+.section-title {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 50px;
+    color: var(--color-neon-blue);
+    text-shadow: 0 0 10px var(--color-neon-blue);
+    text-transform: uppercase;
+}
 
 /* ------------------------------------- */
-/* 2 & 3. 배경 패닝 제거 및 입자 애니메이션 스타일 */
+/* 배경 스타일 (입자) */
 /* ------------------------------------- */
 
 #particles-js {
@@ -66,7 +81,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* 콘텐츠보다 아래에 위치 */
+    z-index: 1;
     background-color: var(--color-dark);
 }
 
@@ -79,18 +94,48 @@ body {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    pointer-events: none; /* 클릭을 방해하지 않도록 설정 */
+    pointer-events: none;
     z-index: 9999;
-    
-    /* 네온 빛 효과 */
     background: var(--color-neon-pink);
     box-shadow: 0 0 10px var(--color-neon-pink),
                 0 0 20px var(--color-neon-pink),
                 0 0 40px rgba(255, 0, 255, 0.6);
-    
-    /* 잔상을 위한 부드러운 전환 효과 */
     transition: transform 0.1s linear; 
     transform: translate(-50%, -50%); 
+}
+
+/* ------------------------------------- */
+/* 상단 내비게이션 바 스타일 (고정) */
+/* ------------------------------------- */
+
+#top-nav {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(5px);
+    z-index: 999; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--color-neon-blue);
+    box-shadow: 0 0 10px var(--color-neon-blue);
+}
+
+.nav-item {
+    color: var(--color-primary-text);
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 0 20px;
+    margin: 0 15px;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.nav-item:hover {
+    color: var(--color-neon-pink);
+    text-shadow: 0 0 8px var(--color-neon-pink), 0 0 15px rgba(255, 0, 255, 0.5);
 }
 
 /* ------------------------------------- */
@@ -119,10 +164,10 @@ body {
     box-shadow: 0 0 10px var(--color-neon-blue);
     opacity: 0;
     transform: scale(0.8) translateY(20px);
-    transition: all 0.5s ease, transform 0.2s ease; /* 호버 전환 효과 추가 */
+    transition: all 0.5s ease, transform 0.2s ease;
     position: absolute; 
     overflow: hidden;
-    padding: 0 !important; /* 내부 여백 없음 유지 */
+    padding: 0 !important;
 }
 
 .image-card.active {
@@ -132,31 +177,28 @@ body {
 }
 
 .image-card.active:hover {
-    /* 활성화된 카드를 호버 시 살짝 키웁니다. */
     transform: scale(1.02) translateY(0); 
 }
 
 .image-card img {
-    /* ⭐ 이 부분을 수정합니다: position 속성 추가 ⭐ */
     position: absolute; 
-    top: 0;           /* 카드의 맨 위(상단)에 이미지를 붙입니다. */
+    top: 0; 
     left: 0;
-    /* ---------------------------------- */
     width: 100%;
     height: 100%; 
     object-fit: cover;
-    object-position: 0% 15%; /* 이미지 포지션 상단 유지 */
+    object-position: 0% 15%; 
     filter: brightness(0.8);
 }
 
 .card-overlay {
     position: absolute;
-    bottom: 0; /* ⭐ 하단에 명확히 붙입니다. ⭐ */
+    bottom: 0; 
     left: 0;
     width: 100%;
     padding: 10px;
-    height: 40px; /* ⭐ 높이를 고정하여 상단 침범 방지 ⭐ */
-    background: rgba(0, 0, 0, 0.8); /* 배경색을 약간 투명하게 설정하여 아래 이미지가 살짝 보이도록 */
+    height: 40px; 
+    background: rgba(0, 0, 0, 0.8);
     color: var(--color-neon-pink);
     text-align: right;
     border-top: 1px solid var(--color-neon-pink);
@@ -202,20 +244,22 @@ body {
     padding: 15px;
     position: relative; 
     overflow: hidden;
-    transition: all 0.3s ease; /* 호버 전환 효과 추가 */
+    transition: all 0.3s ease;
     cursor: pointer;
+}
+.video-thumbnail {
+    width: 100%;
+    /* 높이를 박스 콘텐츠 영역과 맞춥니다. (약 170px이 적당) */
+    height: 170px; 
+    object-fit: cover; /* 이미지가 잘리더라도 영역을 꽉 채우도록 설정 */
+    display: block;
+    margin-bottom: 10px; /* 캡션과의 간격 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .video-box:hover {
-    box-shadow: 0 0 25px var(--color-neon-pink); /* 호버 시 네온 강조 효과 강화 */
-    transform: scale(1.03); /* 살짝 커지는 애니메이션 추가 */
-}
-
-.video-box iframe {
-    width: 100%;
-    height: 170px; 
-    display: block; 
-    margin-bottom: 10px;
+    box-shadow: 0 0 25px var(--color-neon-pink); 
+    transform: scale(1.03);
 }
 
 .video-caption {
@@ -224,7 +268,7 @@ body {
     text-align: center;
 }
 /* ------------------------------------- */
-/* 3. 섹션 구분 네온 선 스타일 (유지) */
+/* 섹션 구분 네온 선 스타일 */
 /* ------------------------------------- */
 .neon-divider {
     width: 80%;
@@ -236,22 +280,24 @@ body {
     opacity: 0.6;
 }
 
+/* ------------------------------------- */
+/* 모달 및 비디오 모달 스타일 */
+/* ------------------------------------- */
 .modal {
-    /* 초기에는 숨김 */
     display: none; 
     position: fixed;
-    z-index: 1000; /* 모든 콘텐츠 위에 보이도록 */
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.9); /* 검은색 반투명 배경 */
+    background-color: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(5px);
 }
 
 .modal-content {
-    margin: 5% auto; /* 상하 5%, 좌우 자동 */
+    margin: 5% auto;
     padding: 30px;
     width: 80%;
     max-width: 900px;
@@ -295,21 +341,15 @@ body {
     line-height: 1.8;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
+/* 비디오 모달 스타일 */
 .video-content {
-    max-width: 800px; /* 비디오에 적합한 최대 너비 */
+    max-width: 800px; 
 }
 
-/* 비디오 플레이어 비율 유지 컨테이너 */
 #video-player-container {
     position: relative;
     width: 100%;
-    /* 16:9 비율 유지를 위한 패딩 (9 / 16 * 100 = 56.25%) */
-    padding-top: 56.25%; 
+    padding-top: 56.25%;
     margin-bottom: 20px;
 }
 
@@ -322,8 +362,13 @@ body {
     border: none;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 /* ------------------------------------- */
-/* 1. 오디오 비주얼라이저 애니메이션 추가 */
+/* 오디오 비주얼라이저 애니메이션 */
 /* ------------------------------------- */
 
 #visualizer {
@@ -331,133 +376,82 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60px; /* 비주얼라이저 높이 */
+    height: 60px;
     overflow: hidden;
     z-index: 5; 
     opacity: 0.5; 
-    /* [A] 바를 화면 전체에 균등하게 배치 */
     background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.1), transparent);
     display: flex;
-    justify-content: space-between; /* 바 사이에 균등한 공간을 줍니다. */
+    justify-content: space-between;
     align-items: flex-end; 
-    padding: 0 5px; /* 양 끝에 약간의 여백 */
+    padding: 0 5px;
 }
 
-/* [B] 이전 ::before, ::after 스타일을 제거하고 이 코드를 추가 */
 .bar {
     display: block;
-    width: 2px; /* 바의 너비 */
+    width: 2px;
     margin: 0 1px;
     background: var(--color-neon-blue);
     box-shadow: 0 0 5px var(--color-neon-blue);
     animation: visualize 1s ease-in-out infinite alternate;
 }
 
-/* [C] 각 바가 다른 높이/움직임을 갖도록 지연 시간을 다르게 설정 */
-.bar:nth-child(even) { /* 짝수 번째 바 */
+.bar:nth-child(even) {
     animation-delay: 0.1s; 
     background: var(--color-neon-pink);
     box-shadow: 0 0 5px var(--color-neon-pink);
 }
 
-.bar:nth-child(3n) { /* 3의 배수 번째 바 */
+.bar:nth-child(3n) {
     animation-delay: 0.3s;
 }
 
-.bar:nth-child(5n) { /* 5의 배수 번째 바 */
+.bar:nth-child(5n) {
     animation-delay: 0.5s;
 }
 
-/* 비주얼라이저 효과 키프레임은 유지 */
 @keyframes visualize {
     0% { height: 10px; }
-    50% { height: 60px; } /* 최대 높이 */
+    50% { height: 60px; }
     100% { height: 20px; }
 }
-/* ------------------------------------- */
-/* [추가된 부분] 마우스 감지 영역 스타일 */
-/* ------------------------------------- */
-
-#nav-trigger-area {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 150px; /* 마우스 감지 영역을 충분히 넓게 (80px~100px) 설정 */
-    z-index: 1000; /* 최상위로 설정 */
-    transition: all 0.3s ease-out; 
-    pointer-events: none; /* 중요! 기본적으로 투명하게 클릭 이벤트를 통과시킵니다. */
-}
-
-/* Nav Bar는 감지 영역 안에 위치합니다. */
-#top-nav {
-    position: fixed;
-    top: 0; /* [수정] 화면 상단에 영구 고정 */
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background-color: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(5px);
-    z-index: 999; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* transition: top 0.3s ease-out; 속성 제거 */
-    /* transform 관련 속성 제거 */
-    border-bottom: 1px solid var(--color-neon-blue);
-    box-shadow: 0 0 10px var(--color-neon-blue);
-}
-
-/* Nav Item 스타일은 유지 */
-.nav-item {
-    color: var(--color-primary-text);
-    text-decoration: none;
-    font-size: 1.1em;
-    padding: 0 20px;
-    margin: 0 15px;
-    transition: color 0.3s, text-shadow 0.3s;
-}
-
-.nav-item:hover {
-    color: var(--color-neon-pink);
-    text-shadow: 0 0 8px var(--color-neon-pink), 0 0 15px rgba(255, 0, 255, 0.5);
-}
 
 /* ------------------------------------- */
-/* 컨택 섹션 (폼) 스타일 */
+/* 컨택 섹션 (폼) 스타일 - 레이아웃 개선 반영 */
 /* ------------------------------------- */
 
 .neon-form {
     max-width: 600px;
     margin: 0 auto;
-    
-    /* [수정] 구조적 배경 추가 */
-    background-color: rgba(10, 10, 10, 0.7); /* 어두운 반투명 배경 */
+    /* 구조적 배경 추가 */
+    background-color: rgba(10, 10, 10, 0.7); 
     padding: 40px;
     border: 1px solid var(--color-neon-blue);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); /* 청록색 네온 윤곽 */
-    backdrop-filter: blur(2px); /* 배경 입자가 살짝 흐려지도록 */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    backdrop-filter: blur(2px);
 }
 
-/* ... (form-group 유지) ... */
+.form-group {
+    margin-bottom: 25px;
+}
 
 .neon-form label {
     display: block;
     margin-bottom: 8px;
     color: var(--color-neon-pink);
-    text-shadow: 0 0 4px var(--color-neon-pink); /* [강화] 레이블 네온 효과 강화 */
+    text-shadow: 0 0 4px var(--color-neon-pink); 
 }
 
 .neon-form input,
 .neon-form textarea {
     width: 100%;
     padding: 15px;
-    background-color: #0a0a0a; /* 배경을 더 어둡게 */
+    background-color: #0a0a0a;
     border: 1px solid var(--color-neon-blue);
     color: var(--color-primary-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 1em;
-    box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.3); /* [강화] 내부 인셋 섀도우 추가 */
+    box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.3);
     transition: box-shadow 0.3s, border-color 0.3s;
 }
 
@@ -465,10 +459,19 @@ body {
 .neon-form textarea:focus {
     outline: none;
     border-color: var(--color-neon-pink);
-    box-shadow: 0 0 15px var(--color-neon-pink), inset 0 0 8px rgba(255, 0, 255, 0.5); /* [강화] 포커스 시 핑크 네온 강조 */
+    box-shadow: 0 0 15px var(--color-neon-pink), inset 0 0 8px rgba(255, 0, 255, 0.5);
 }
 
-/* ... (textarea 유지) ... */
+.neon-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
 .neon-button {
     background-color: var(--color-neon-blue);
     color: var(--color-dark);
@@ -479,15 +482,15 @@ body {
     cursor: pointer;
     text-transform: uppercase;
     box-shadow: 0 0 15px var(--color-neon-blue);
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s; /* 트랜지션 추가 */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
 }
 
 .neon-button:hover {
     background-color: #fff;
-    box-shadow: 0 0 30px var(--color-neon-pink), 0 0 50px var(--color-neon-pink); /* 호버 네온 강조 강화 */
-    transform: translateY(-2px); /* 살짝 위로 띄우는 효과 */
+    box-shadow: 0 0 30px var(--color-neon-pink), 0 0 50px var(--color-neon-pink);
+    transform: translateY(-2px);
 }
 
 .neon-button:active {
-    transform: translateY(0); /* 클릭 시 누르는 효과 */
+    transform: translateY(0);
 }

@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ======================================
-    // 2. 이미지 세부 정보 모달 기능 구현을 위한 변수 (유지)
+    // 2. 모달 기능 변수 선언
     // ======================================
+    // 이미지 모달 변수
     const modal = document.getElementById('image-modal');
     const modalImage = document.getElementById('modal-image');
     const modalTitle = document.getElementById('modal-title');
@@ -25,13 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.querySelector('.close-btn');
     const imageCards = document.querySelectorAll('.image-card');
 
-    // [추가] 비디오 모달 관련 변수 선언
+    // [추가된 부분] 비디오 모달 변수
     const videoModal = document.getElementById('video-modal');
     const videoPlayerContainer = document.getElementById('video-player-container');
     const videoCloseBtn = document.querySelector('.video-close');
     const modalVideoTitle = document.getElementById('modal-video-title');
-    const videoBoxes = document.querySelectorAll('.video-box');
+    const videoBoxes = document.querySelectorAll('#video-section .video-box'); // 섹션 내 비디오 박스만 선택
 
+    // -------------------------------------
+    // 2A. 이미지 세부 정보 모달 기능 구현 (유지)
+    // -------------------------------------
     imageCards.forEach(card => {
         card.addEventListener('click', () => {
             // 활성화된 카드는 무시
@@ -57,7 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // [추가] 비디오 모달 닫기 함수
+    // -------------------------------------
+    // 2B. [추가된 부분] 비디오 모달 기능 구현
+    // -------------------------------------
+    
+    // 비디오 모달을 닫는 함수 (재생 중지 포함)
     function closeVideoModal() {
         if (videoModal) {
             videoModal.style.display = 'none';
@@ -67,25 +75,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
-    // [추가] 비디오 박스 클릭 이벤트
+    
     videoBoxes.forEach(box => {
-        box.addEventListener('click', () => {
-            const videoUrl = box.getAttribute('data-video-url');
-            const dataTitle = box.getAttribute('data-title');
+    box.addEventListener('click', () => {
+        const videoFile = box.getAttribute('data-video-file');
+        const dataTitle = box.getAttribute('data-title');
+        // ⭐ [추가] 섬네일 경로를 가져옵니다. ⭐
+        const thumbnailFile = box.getAttribute('data-thumbnail'); 
 
-            if (videoModal && videoPlayerContainer && videoUrl) {
-                // iframe 태그 생성 및 URL 삽입 (autoplay=1 추가)
-                const iframeHTML = `<iframe src="${videoUrl}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-                
-                videoPlayerContainer.innerHTML = iframeHTML;
-                modalVideoTitle.textContent = dataTitle; 
-                videoModal.style.display = 'block';
-            }
-        });
+        if (videoModal && videoPlayerContainer && videoFile) {
+            
+            // ⭐ [수정] poster="${thumbnailFile}" 속성을 <video> 태그에 추가 ⭐
+            const videoHTML = `<video width="100%" height="100%" controls autoplay poster="${thumbnailFile}">
+                                   <source src="${videoFile}" type="video/${videoFile.endsWith('.webm') ? 'webm' : 'mp4'}">
+                                   브라우저가 비디오 태그를 지원하지 않습니다.
+                               </video>`;
+            
+            videoPlayerContainer.innerHTML = videoHTML;
+            modalVideoTitle.textContent = dataTitle; 
+            videoModal.style.display = 'block';
+        }
     });
+});
 
-    // [추가] 비디오 닫기 버튼 클릭 시
+    // 비디오 닫기 버튼 클릭 시
     if (videoCloseBtn) {
         videoCloseBtn.addEventListener('click', closeVideoModal);
     }
