@@ -59,8 +59,9 @@ body {
     margin-bottom: 30px;
 }
 .title {
-    font-size: 3em;
+    font-size: 5em;
     text-transform: uppercase;
+    animation: neon-blink 3s ease-in-out infinite alternate;
 }
 .section-title {
     font-size: 2.5em;
@@ -69,6 +70,22 @@ body {
     color: var(--color-neon-blue);
     text-shadow: 0 0 10px var(--color-neon-blue);
     text-transform: uppercase;
+}
+
+@keyframes neon-blink {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px var(--color-neon-blue),
+                     0 0 15px var(--color-neon-blue),
+                     0 0 30px var(--color-neon-blue),
+                     0 0 50px rgba(0, 255, 255, 0.7);
+    }
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 5px var(--color-neon-blue),
+                     0 0 10px var(--color-neon-blue),
+                     0 0 20px rgba(0, 255, 255, 0.3);
+    }
 }
 
 /* ------------------------------------- */
@@ -91,17 +108,42 @@ body {
 
 #glow-cursor {
     position: fixed;
-    width: 20px;
-    height: 20px;
+    /* ⭐ [수정] width, height 초기값을 JS가 제어할 수 있도록 제거 (또는 초기화) ⭐ */
+    width: 20px; 
+    height: 20px; 
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
+    
     background: var(--color-neon-pink);
     box-shadow: 0 0 10px var(--color-neon-pink),
                 0 0 20px var(--color-neon-pink),
                 0 0 40px rgba(255, 0, 255, 0.6);
-    transition: transform 0.1s linear; 
+    
+    /* ⭐ [수정] 마우스 움직임에 따른 부드러운 전환을 위해 transition 속성 수정 ⭐ */
+    /* width/height 전환을 부드럽게 처리 */
+    transition: box-shadow 0.3s, transform 0.1s linear; 
+    
+    /* ⭐ [제거] 기존의 cursor-pulse 애니메이션 제거 (JS가 제어) ⭐ */
+    /* animation: none; */ 
+    
     transform: translate(-50%, -50%); 
+}
+
+/* ⭐ 2. 마우스 반응형 클래스 추가: 버튼 등에 닿았을 때 커서가 커지는 효과 ⭐ */
+#glow-cursor.cursor-pointer {
+    width: 35px; /* 크기 확대 */
+    height: 35px;
+    box-shadow: 0 0 15px var(--color-neon-blue),
+                0 0 30px var(--color-neon-blue),
+                0 0 60px rgba(0, 255, 255, 0.8);
+    background: var(--color-neon-blue);
+}
+
+@keyframes cursor-pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); } /* 살짝 확대 */
+    100% { transform: translate(-50%, -50%) scale(1); }
 }
 
 /* ------------------------------------- */
@@ -315,15 +357,7 @@ body {
     margin-bottom: 20px;
 }
 
-.close-btn {
-    color: var(--color-neon-pink);
-    float: right;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    text-shadow: 0 0 5px var(--color-neon-pink);
-    transition: color 0.3s;
-}
+
 
 .close-btn:hover,
 .close-btn:focus {
@@ -349,7 +383,7 @@ body {
 #video-player-container {
     position: relative;
     width: 100%;
-    padding-top: 56.25%;
+    padding-top: 0%;
     margin-bottom: 20px;
 }
 
@@ -366,6 +400,7 @@ body {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
 }
+
 
 /* ------------------------------------- */
 /* 오디오 비주얼라이저 애니메이션 */
